@@ -19,33 +19,36 @@
 
 <body>
   <div id="test" style="width: 100px;height: 100px;"></div>
+  <button onclick="test()">1111</button>
   <script>
+function test(){
 
-    var client = new LiveClient();
-    client.create(null, 'b1288f16ddb0442dadb3989cc0f721da', function () {
-      console.log("client inited");
+  
+  var client = new LiveClient();
+  client.create(null, 'b1288f16ddb0442dadb3989cc0f721da', function () {
+    console.log("client inited");
+  });
+
+  client.joinChannel(null, 'roomId', 'roomName', 1000, 'userName', 'host', function () {
+    console.log("you have joined channel");
+  });
+
+  var localStream = client.createStream({
+    uid: client.uid,
+    audio: true,
+    video: false,
+    screen: true,
+  })
+
+  localStream.init(() => {
+    client.publishStream(localStream, (err) => {
+      console.log("老师端:Publish local stream error: " + err);
     });
-
-    client.joinChannel(null, 'roomId', 'roomName', 1000, 'userName', 'host', function () {
-      console.log("you have joined channel");
-    });
-
-     var localStream = client.createStream({
-      uid: client.uid,
-      audio: true,
-      video: false,
-      screen: true,
-    })
- 
-    localStream.init(() => {
-        client.publishStream(localStream, (err) => {
-          console.log("老师端:Publish local stream error: " + err);
-        });
-        localStream.play('test')
-      }, (err) => {
-        console.log(err);
-        console.log("老师端:Publish local stream error: " + err);
-      });
+    localStream.play('test')
+  }, (err) => {
+    console.log(err);
+    console.log("老师端:Publish local stream error: " + err);
+  });
 
     // client.on('stream-added', function (e) {
     //   var stream = e.stream;
@@ -58,6 +61,7 @@
     //   var remoteStream = e.stream;
     //   //接下来可以选择在本地播放远端流
     // })
+}
 
   </script>
 </body>
