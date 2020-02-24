@@ -1,12 +1,58 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><link rel=icon href=/favicon.ico><title>蛋糕预订</title><script>(function (doc, win) {
-      var docEl = doc.documentElement,
-        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-        recalc = function () {
-          var clientWidth = docEl.clientWidth;
-          if (!clientWidth) return;
-          docEl.style.fontSize = 20 * (clientWidth / 375) + 'px';
-        };
-      win.addEventListener(resizeEvt, recalc, false);
-      recalc();
-    })(document, window);
-    document.addEventListener("touchstart", function () { }, false);</script><link href=/js/chunk-2d207830.06292995.js rel=prefetch><link href=/js/chunk-731a7d6a.3899b1e2.js rel=prefetch><link href=/js/chunk-78248a45.59f0ed09.js rel=prefetch><link href=/js/chunk-873d5df0.81eec05e.js rel=prefetch><link href=/css/app.27b2e4e6.css rel=preload as=style><link href=/js/app.de59e4c3.js rel=preload as=script><link href=/js/chunk-vendors.d6d957ef.js rel=preload as=script><link href=/css/app.27b2e4e6.css rel=stylesheet></head><body><div id=app></div><script src=/js/chunk-vendors.d6d957ef.js></script><script src=/js/app.de59e4c3.js></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://media-cache.huaweicloud.com/video/rtcdemo/dist/HwRTC-SDK-1.0.0.js"></script>
+  
+  
+  <script src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/dist/hwplayer.js"></script>
+  <script src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/lib/flv-1.4.2.min.js"></script>
+  <script src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/dist/hwplayer.js?flvjs=true"></script>
+
+</head>
+
+<body>
+  <div id="test" style="width: 100px;height: 100px;"></div>
+  <script>
+    
+    var client = new LiveClient();
+    client.create(null, 'b1288f16ddb0442dadb3989cc0f721da', function () {
+      console.log("client inited");
+    });
+
+    client.joinChannel(null, 'roomId', 'roomName', 1000, 'userName', 'host', function () {
+      console.log("you have joined channel");
+    });
+
+    localStream = client.createStream({
+      uid: client.uid,
+      audio: true,
+      video: false,
+      screen: false,
+    })
+
+    client.publishStream(localStream, function (err) {
+      console.log("Publish local stream error: " + err);
+      localStream.play('test')
+    });
+
+    // client.on('stream-added', function (e) {
+    //   var stream = e.stream;
+    //   //订阅远端流，触发订阅事件
+    //   client.subscribe(stream, function (err) {
+    //     console.log("Subscribe stream failed", err);
+    //   });
+    // });
+    // client.on('stream-subscribed', function (e) {
+    //   var remoteStream = e.stream;
+    //   //接下来可以选择在本地播放远端流
+    // })
+
+  </script>
+</body>
+
+</html>
