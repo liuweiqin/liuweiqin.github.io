@@ -30,17 +30,22 @@
       console.log("you have joined channel");
     });
 
-    localStream = client.createStream({
+     var localStream = client.createStream({
       uid: client.uid,
       audio: true,
       video: false,
-      screen: false,
+      screen: true,
     })
-
-    client.publishStream(localStream, function (err) {
-      console.log("Publish local stream error: " + err);
-      localStream.play('test')
-    });
+ 
+    localStream.init(() => {
+        client.publishStream(localStream, (err) => {
+          console.log("老师端:Publish local stream error: " + err);
+        });
+        localStream.play('test')
+      }, (err) => {
+        console.log(err);
+        console.log("老师端:Publish local stream error: " + err);
+      });
 
     // client.on('stream-added', function (e) {
     //   var stream = e.stream;
