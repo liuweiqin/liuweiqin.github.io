@@ -27,28 +27,34 @@ function test(){
   var client = new LiveClient();
   client.create(null, 'b1288f16ddb0442dadb3989cc0f721da', function () {
     console.log("client inited");
-  });
 
-  client.joinChannel(null, 'roomId', 'roomName', '1000', 'userName', 'host', function () {
-    console.log("you have joined channel");
-  });
+    client.joinChannel(null, 'roomId', 'roomName', '1000', 'userName', 'host', function () {
+      console.log("you have joined channel");
 
-  var localStream = client.createStream({
-    uid: client.uid,
-    audio: true,
-    video: false,
-    screen: true,
-  })
+        var localStream = client.createStream({
+        uid: client.uid,
+        audio: true,
+        video: false,
+        screen: true,
+      })
 
-  localStream.init(() => {
-    client.publishStream(localStream, (err) => {
-      console.log("老师端:Publish local stream error: " + err);
+      localStream.init(() => {
+        client.publishStream(localStream, (err) => {
+          console.log("老师端:Publish local stream error: " + err);
+        });
+        localStream.play('test')
+      }, (err) => {
+        console.log(err);
+        console.log("老师端:Publish local stream error: " + err);
+      });
     });
-    localStream.play('test')
-  }, (err) => {
-    console.log(err);
-    console.log("老师端:Publish local stream error: " + err);
+
+  
+
+
   });
+
+  
 
     // client.on('stream-added', function (e) {
     //   var stream = e.stream;
