@@ -3,23 +3,24 @@
 
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <script src="http://wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.3.0"></script>
+  <script>new VConsole()</script>
   <script src="https://media-cache.huaweicloud.com/video/rtcdemo/dist/HwRTC-SDK-1.0.0.js"></script>
-  
-  
+
+
   <script src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/dist/hwplayer.js"></script>
   <script src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/lib/flv-1.4.2.min.js"></script>
   <script src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/dist/hwplayer.js?flvjs=true"></script>
-    <script src="http://wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.3.0"></script>
-  <script>new VConsole()</script>
+  
 </head>
 
 <body>
   <div id="test" style="width: 100px;height: 100px;"></div>
   <script>
-    
+
     var client = new LiveClient();
     client.create(null, 'b1288f16ddb0442dadb3989cc0f721da', function () {
       console.log("client inited");
