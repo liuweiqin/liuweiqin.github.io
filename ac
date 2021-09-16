@@ -1,1 +1,29 @@
 
+import axios from 'axios';
+
+var instance = axios.create({
+  baseURL: './../../',
+});
+
+// 响应拦截器简化响应体
+instance.interceptors.response.use(
+  function(response) {
+    const { data } = response;
+    return data;
+  },
+  function(error) {
+    return Promise.reject(error);
+  },
+);
+
+function request(config) {
+  var lang = localStorage.getItem('wo_lang');
+  var defaultConfig = {
+    headers: {
+      lang,
+    },
+  };
+  return instance.request({ ...defaultConfig, ...config });
+}
+
+export default request;
